@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/Screenshots/">
+    <File Path="../../../Pictures/Screenshot_1.png" />
+    <File Path="../../../Pictures/Screenshot_2.png" />
+  </Folder>
+  <Project Path="Kramskoi_ConstructionRegistration/Kramskoi_ConstructionRegistration.csproj" Id="ffaaf7e0-2fcd-44a1-93c2-1696aea63e98" />
+  <Project Path="PasswordSecurity/PasswordSecurity.csproj" Id="c5c9f00a-6210-40d4-bde4-c6aae940af63" />
+</Solution>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="372ade1cfb8c4f18a1f197c981c6fb8d" Name="Diagram1">
+        <EntityTypeShape EntityType="stroi2Model.Clients" Width="1.5" PointX="3.75" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="stroi2Model.ConstructionObjects" Width="1.5" PointX="0.75" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="stroi2Model.ConstructionStages" Width="1.5" PointX="3" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="stroi2Model.Employees" Width="1.5" PointX="3.75" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="stroi2Model.MaterialDeliveries" Width="1.5" PointX="8.25" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="stroi2Model.Materials" Width="1.5" PointX="3.75" PointY="29" IsExpanded="true" />
+        <EntityTypeShape EntityType="stroi2Model.ObjectMaterials" Width="1.5" PointX="6" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="stroi2Model.Orders" Width="1.5" PointX="6" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="stroi2Model.OrderServices" Width="1.5" PointX="8.25" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="stroi2Model.OrderStatuses" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="stroi2Model.Permits" Width="1.5" PointX="3" PointY="21.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="stroi2Model.Roles" Width="1.5" PointX="8.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="stroi2Model.Services" Width="1.5" PointX="6" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="stroi2Model.Sketches" Width="1.5" PointX="3" PointY="25" IsExpanded="true" />
+        <EntityTypeShape EntityType="stroi2Model.StageTypes" Width="1.5" PointX="0.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="stroi2Model.sysdiagrams" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="stroi2Model.TechnicalInspections" Width="1.5" PointX="3" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="stroi2Model.Users" Width="1.5" PointX="11" PointY="1.625" IsExpanded="true" />
+        <AssociationConnector Association="stroi2Model.FK__Orders__ClientID__52593CB8" ManuallyRouted="false" />
+        <AssociationConnector Association="stroi2Model.FK__Construct__Objec__6B24EA82" ManuallyRouted="false" />
+        <AssociationConnector Association="stroi2Model.FK__ObjectMat__Objec__628FA481" ManuallyRouted="false" />
+        <AssociationConnector Association="stroi2Model.FK__Orders__ObjectID__534D60F1" ManuallyRouted="false" />
+        <AssociationConnector Association="stroi2Model.FK__Permits__ObjectI__59063A47" ManuallyRouted="false" />
+        <AssociationConnector Association="stroi2Model.FK__Sketches__Object__5BE2A6F2" ManuallyRouted="false" />
+        <AssociationConnector Association="stroi2Model.FK__Technical__Objec__70DDC3D8" ManuallyRouted="false" />
+        <AssociationConnector Association="stroi2Model.FK__Construct__Emplo__6D0D32F4" ManuallyRouted="false" />
+        <AssociationConnector Association="stroi2Model.FK__Construct__Stage__6C190EBB" ManuallyRouted="false" />
+        <AssociationConnector Association="stroi2Model.FK__Orders__Employee__5441852A" ManuallyRouted="false" />
+        <AssociationConnector Association="stroi2Model.FK__Technical__Emplo__71D1E811" ManuallyRouted="false" />
+        <AssociationConnector Association="stroi2Model.FK__MaterialDeliveri__66603565" ManuallyRouted="false" />
+        <AssociationConnector Association="stroi2Model.FK__ObjectMat__Mater__6383C8BA" ManuallyRouted="false" />
+        <AssociationConnector Association="stroi2Model.FK__Orders__StatusID__5535A963" ManuallyRouted="false" />
+        <AssociationConnector Association="stroi2Model.FK__OrderServ__Order__76969D2E" ManuallyRouted="false" />
+        <AssociationConnector Association="stroi2Model.FK__OrderServ__Servi__778AC167" ManuallyRouted="false" />
+        <AssociationConnector Association="stroi2Model.FK_Users_Roles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,1248 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище stroi2Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Clients">
+          <Key>
+            <PropertyRef Name="ClientID" />
+          </Key>
+          <Property Name="ClientID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MiddleName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Passport" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="Address" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="ConstructionObjects">
+          <Key>
+            <PropertyRef Name="ObjectID" />
+          </Key>
+          <Property Name="ObjectID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ObjectName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ObjectType" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Area" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Floors" Type="int" />
+        </EntityType>
+        <EntityType Name="ConstructionStages">
+          <Key>
+            <PropertyRef Name="StageID" />
+          </Key>
+          <Property Name="StageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ObjectID" Type="int" Nullable="false" />
+          <Property Name="StageTypeID" Type="int" Nullable="false" />
+          <Property Name="EmployeeID" Type="int" Nullable="false" />
+          <Property Name="StartDate" Type="date" />
+          <Property Name="EndDate" Type="date" />
+          <Property Name="Status" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Employees">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MiddleName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Position" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="20" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="MaterialDeliveries">
+          <Key>
+            <PropertyRef Name="DeliveryID" />
+          </Key>
+          <Property Name="DeliveryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ObjectID" Type="int" Nullable="false" />
+          <Property Name="MaterialID" Type="int" Nullable="false" />
+          <Property Name="Supplier" Type="nvarchar" MaxLength="100" />
+          <Property Name="DeliveryDate" Type="date" Nullable="false" />
+          <Property Name="Quantity" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="UnitPrice" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="Materials">
+          <Key>
+            <PropertyRef Name="MaterialID" />
+          </Key>
+          <Property Name="MaterialID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaterialName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Unit" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ObjectMaterials">
+          <Key>
+            <PropertyRef Name="ObjectID" />
+            <PropertyRef Name="MaterialID" />
+          </Key>
+          <Property Name="ObjectID" Type="int" Nullable="false" />
+          <Property Name="MaterialID" Type="int" Nullable="false" />
+          <Property Name="PlannedQuantity" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientID" Type="int" Nullable="false" />
+          <Property Name="ObjectID" Type="int" Nullable="false" />
+          <Property Name="EmployeeID" Type="int" Nullable="false" />
+          <Property Name="StatusID" Type="int" Nullable="false" />
+          <Property Name="OrderDate" Type="date" Nullable="false" />
+          <Property Name="StartDate" Type="date" />
+          <Property Name="PlannedEndDate" Type="date" />
+          <Property Name="Conditions" Type="nvarchar(max)" />
+          <Property Name="TotalCost" Type="decimal" Precision="12" Scale="2" />
+        </EntityType>
+        <EntityType Name="OrderServices">
+          <Key>
+            <PropertyRef Name="OrderServiceID" />
+          </Key>
+          <Property Name="OrderServiceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderID" Type="int" Nullable="false" />
+          <Property Name="ServiceID" Type="int" Nullable="false" />
+          <Property Name="ServiceDate" Type="date" />
+          <Property Name="Cost" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Note" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="OrderStatuses">
+          <Key>
+            <PropertyRef Name="StatusID" />
+          </Key>
+          <Property Name="StatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StatusName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Permits">
+          <Key>
+            <PropertyRef Name="PermitID" />
+          </Key>
+          <Property Name="PermitID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ObjectID" Type="int" Nullable="false" />
+          <Property Name="PermitType" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="PermitNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IssuedBy" Type="nvarchar" MaxLength="150" />
+          <Property Name="IssueDate" Type="date" Nullable="false" />
+          <Property Name="ValidUntil" Type="date" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Services">
+          <Key>
+            <PropertyRef Name="ServiceID" />
+          </Key>
+          <Property Name="ServiceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ServiceName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="BasePrice" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="Sketches">
+          <Key>
+            <PropertyRef Name="SketchID" />
+          </Key>
+          <Property Name="SketchID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ObjectID" Type="int" Nullable="false" />
+          <Property Name="SketchName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="FilePath" Type="nvarchar" MaxLength="255" />
+          <Property Name="CreateDate" Type="date" />
+          <Property Name="IsApproved" Type="bit" />
+        </EntityType>
+        <EntityType Name="StageTypes">
+          <Key>
+            <PropertyRef Name="StageTypeID" />
+          </Key>
+          <Property Name="StageTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StageName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="StageOrder" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TechnicalInspections">
+          <Key>
+            <PropertyRef Name="InspectionID" />
+          </Key>
+          <Property Name="InspectionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ObjectID" Type="int" Nullable="false" />
+          <Property Name="EmployeeID" Type="int" Nullable="false" />
+          <Property Name="InspectionDate" Type="date" Nullable="false" />
+          <Property Name="Result" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Remarks" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="RoleID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Construct__Emplo__6D0D32F4">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="ConstructionStages" Type="Self.ConstructionStages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="ConstructionStages">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Construct__Objec__6B24EA82">
+          <End Role="ConstructionObjects" Type="Self.ConstructionObjects" Multiplicity="1" />
+          <End Role="ConstructionStages" Type="Self.ConstructionStages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ConstructionObjects">
+              <PropertyRef Name="ObjectID" />
+            </Principal>
+            <Dependent Role="ConstructionStages">
+              <PropertyRef Name="ObjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Construct__Stage__6C190EBB">
+          <End Role="StageTypes" Type="Self.StageTypes" Multiplicity="1" />
+          <End Role="ConstructionStages" Type="Self.ConstructionStages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StageTypes">
+              <PropertyRef Name="StageTypeID" />
+            </Principal>
+            <Dependent Role="ConstructionStages">
+              <PropertyRef Name="StageTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MaterialDeliveri__66603565">
+          <End Role="ObjectMaterials" Type="Self.ObjectMaterials" Multiplicity="1" />
+          <End Role="MaterialDeliveries" Type="Self.MaterialDeliveries" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ObjectMaterials">
+              <PropertyRef Name="ObjectID" />
+              <PropertyRef Name="MaterialID" />
+            </Principal>
+            <Dependent Role="MaterialDeliveries">
+              <PropertyRef Name="ObjectID" />
+              <PropertyRef Name="MaterialID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ObjectMat__Mater__6383C8BA">
+          <End Role="Materials" Type="Self.Materials" Multiplicity="1" />
+          <End Role="ObjectMaterials" Type="Self.ObjectMaterials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Materials">
+              <PropertyRef Name="MaterialID" />
+            </Principal>
+            <Dependent Role="ObjectMaterials">
+              <PropertyRef Name="MaterialID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ObjectMat__Objec__628FA481">
+          <End Role="ConstructionObjects" Type="Self.ConstructionObjects" Multiplicity="1" />
+          <End Role="ObjectMaterials" Type="Self.ObjectMaterials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ConstructionObjects">
+              <PropertyRef Name="ObjectID" />
+            </Principal>
+            <Dependent Role="ObjectMaterials">
+              <PropertyRef Name="ObjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__ClientID__52593CB8">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="ClientID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__Employee__5441852A">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__ObjectID__534D60F1">
+          <End Role="ConstructionObjects" Type="Self.ConstructionObjects" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ConstructionObjects">
+              <PropertyRef Name="ObjectID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="ObjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__StatusID__5535A963">
+          <End Role="OrderStatuses" Type="Self.OrderStatuses" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderStatuses">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderServ__Order__76969D2E">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="OrderServices" Type="Self.OrderServices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="OrderServices">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderServ__Servi__778AC167">
+          <End Role="Services" Type="Self.Services" Multiplicity="1" />
+          <End Role="OrderServices" Type="Self.OrderServices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services">
+              <PropertyRef Name="ServiceID" />
+            </Principal>
+            <Dependent Role="OrderServices">
+              <PropertyRef Name="ServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Permits__ObjectI__59063A47">
+          <End Role="ConstructionObjects" Type="Self.ConstructionObjects" Multiplicity="1" />
+          <End Role="Permits" Type="Self.Permits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ConstructionObjects">
+              <PropertyRef Name="ObjectID" />
+            </Principal>
+            <Dependent Role="Permits">
+              <PropertyRef Name="ObjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sketches__Object__5BE2A6F2">
+          <End Role="ConstructionObjects" Type="Self.ConstructionObjects" Multiplicity="1" />
+          <End Role="Sketches" Type="Self.Sketches" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ConstructionObjects">
+              <PropertyRef Name="ObjectID" />
+            </Principal>
+            <Dependent Role="Sketches">
+              <PropertyRef Name="ObjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Technical__Emplo__71D1E811">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="TechnicalInspections" Type="Self.TechnicalInspections" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="TechnicalInspections">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Technical__Objec__70DDC3D8">
+          <End Role="ConstructionObjects" Type="Self.ConstructionObjects" Multiplicity="1" />
+          <End Role="TechnicalInspections" Type="Self.TechnicalInspections" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ConstructionObjects">
+              <PropertyRef Name="ObjectID" />
+            </Principal>
+            <Dependent Role="TechnicalInspections">
+              <PropertyRef Name="ObjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище stroi2ModelContainer">
+          <EntitySet Name="Clients" EntityType="Self.Clients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ConstructionObjects" EntityType="Self.ConstructionObjects" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ConstructionStages" EntityType="Self.ConstructionStages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MaterialDeliveries" EntityType="Self.MaterialDeliveries" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Materials" EntityType="Self.Materials" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ObjectMaterials" EntityType="Self.ObjectMaterials" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderServices" EntityType="Self.OrderServices" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderStatuses" EntityType="Self.OrderStatuses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Permits" EntityType="Self.Permits" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Services" EntityType="Self.Services" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sketches" EntityType="Self.Sketches" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StageTypes" EntityType="Self.StageTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TechnicalInspections" EntityType="Self.TechnicalInspections" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Construct__Emplo__6D0D32F4" Association="Self.FK__Construct__Emplo__6D0D32F4">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="ConstructionStages" EntitySet="ConstructionStages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Construct__Objec__6B24EA82" Association="Self.FK__Construct__Objec__6B24EA82">
+            <End Role="ConstructionObjects" EntitySet="ConstructionObjects" />
+            <End Role="ConstructionStages" EntitySet="ConstructionStages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Construct__Stage__6C190EBB" Association="Self.FK__Construct__Stage__6C190EBB">
+            <End Role="StageTypes" EntitySet="StageTypes" />
+            <End Role="ConstructionStages" EntitySet="ConstructionStages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MaterialDeliveri__66603565" Association="Self.FK__MaterialDeliveri__66603565">
+            <End Role="ObjectMaterials" EntitySet="ObjectMaterials" />
+            <End Role="MaterialDeliveries" EntitySet="MaterialDeliveries" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ObjectMat__Mater__6383C8BA" Association="Self.FK__ObjectMat__Mater__6383C8BA">
+            <End Role="Materials" EntitySet="Materials" />
+            <End Role="ObjectMaterials" EntitySet="ObjectMaterials" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ObjectMat__Objec__628FA481" Association="Self.FK__ObjectMat__Objec__628FA481">
+            <End Role="ConstructionObjects" EntitySet="ConstructionObjects" />
+            <End Role="ObjectMaterials" EntitySet="ObjectMaterials" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__ClientID__52593CB8" Association="Self.FK__Orders__ClientID__52593CB8">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__Employee__5441852A" Association="Self.FK__Orders__Employee__5441852A">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__ObjectID__534D60F1" Association="Self.FK__Orders__ObjectID__534D60F1">
+            <End Role="ConstructionObjects" EntitySet="ConstructionObjects" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__StatusID__5535A963" Association="Self.FK__Orders__StatusID__5535A963">
+            <End Role="OrderStatuses" EntitySet="OrderStatuses" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderServ__Order__76969D2E" Association="Self.FK__OrderServ__Order__76969D2E">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrderServices" EntitySet="OrderServices" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderServ__Servi__778AC167" Association="Self.FK__OrderServ__Servi__778AC167">
+            <End Role="Services" EntitySet="Services" />
+            <End Role="OrderServices" EntitySet="OrderServices" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Permits__ObjectI__59063A47" Association="Self.FK__Permits__ObjectI__59063A47">
+            <End Role="ConstructionObjects" EntitySet="ConstructionObjects" />
+            <End Role="Permits" EntitySet="Permits" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sketches__Object__5BE2A6F2" Association="Self.FK__Sketches__Object__5BE2A6F2">
+            <End Role="ConstructionObjects" EntitySet="ConstructionObjects" />
+            <End Role="Sketches" EntitySet="Sketches" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Technical__Emplo__71D1E811" Association="Self.FK__Technical__Emplo__71D1E811">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="TechnicalInspections" EntitySet="TechnicalInspections" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Technical__Objec__70DDC3D8" Association="Self.FK__Technical__Objec__70DDC3D8">
+            <End Role="ConstructionObjects" EntitySet="ConstructionObjects" />
+            <End Role="TechnicalInspections" EntitySet="TechnicalInspections" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Roles" Association="Self.FK_Users_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="stroi2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Clients">
+          <Key>
+            <PropertyRef Name="ClientID" />
+          </Key>
+          <Property Name="ClientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Passport" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__ClientID__52593CB8" FromRole="Clients" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="ConstructionObjects">
+          <Key>
+            <PropertyRef Name="ObjectID" />
+          </Key>
+          <Property Name="ObjectID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ObjectName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ObjectType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Area" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Floors" Type="Int32" />
+          <NavigationProperty Name="ConstructionStages" Relationship="Self.FK__Construct__Objec__6B24EA82" FromRole="ConstructionObjects" ToRole="ConstructionStages" />
+          <NavigationProperty Name="ObjectMaterials" Relationship="Self.FK__ObjectMat__Objec__628FA481" FromRole="ConstructionObjects" ToRole="ObjectMaterials" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__ObjectID__534D60F1" FromRole="ConstructionObjects" ToRole="Orders" />
+          <NavigationProperty Name="Permits" Relationship="Self.FK__Permits__ObjectI__59063A47" FromRole="ConstructionObjects" ToRole="Permits" />
+          <NavigationProperty Name="Sketches" Relationship="Self.FK__Sketches__Object__5BE2A6F2" FromRole="ConstructionObjects" ToRole="Sketches" />
+          <NavigationProperty Name="TechnicalInspections" Relationship="Self.FK__Technical__Objec__70DDC3D8" FromRole="ConstructionObjects" ToRole="TechnicalInspections" />
+        </EntityType>
+        <EntityType Name="ConstructionStages">
+          <Key>
+            <PropertyRef Name="StageID" />
+          </Key>
+          <Property Name="StageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ObjectID" Type="Int32" Nullable="false" />
+          <Property Name="StageTypeID" Type="Int32" Nullable="false" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Precision="0" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ConstructionObjects" Relationship="Self.FK__Construct__Objec__6B24EA82" FromRole="ConstructionStages" ToRole="ConstructionObjects" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK__Construct__Emplo__6D0D32F4" FromRole="ConstructionStages" ToRole="Employees" />
+          <NavigationProperty Name="StageTypes" Relationship="Self.FK__Construct__Stage__6C190EBB" FromRole="ConstructionStages" ToRole="StageTypes" />
+        </EntityType>
+        <EntityType Name="Employees">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Position" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ConstructionStages" Relationship="Self.FK__Construct__Emplo__6D0D32F4" FromRole="Employees" ToRole="ConstructionStages" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__Employee__5441852A" FromRole="Employees" ToRole="Orders" />
+          <NavigationProperty Name="TechnicalInspections" Relationship="Self.FK__Technical__Emplo__71D1E811" FromRole="Employees" ToRole="TechnicalInspections" />
+        </EntityType>
+        <EntityType Name="MaterialDeliveries">
+          <Key>
+            <PropertyRef Name="DeliveryID" />
+          </Key>
+          <Property Name="DeliveryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ObjectID" Type="Int32" Nullable="false" />
+          <Property Name="MaterialID" Type="Int32" Nullable="false" />
+          <Property Name="Supplier" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DeliveryDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Quantity" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="UnitPrice" Type="Decimal" Precision="10" Scale="2" />
+          <NavigationProperty Name="ObjectMaterials" Relationship="Self.FK__MaterialDeliveri__66603565" FromRole="MaterialDeliveries" ToRole="ObjectMaterials" />
+        </EntityType>
+        <EntityType Name="Materials">
+          <Key>
+            <PropertyRef Name="MaterialID" />
+          </Key>
+          <Property Name="MaterialID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaterialName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Unit" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="ObjectMaterials" Relationship="Self.FK__ObjectMat__Mater__6383C8BA" FromRole="Materials" ToRole="ObjectMaterials" />
+        </EntityType>
+        <EntityType Name="ObjectMaterials">
+          <Key>
+            <PropertyRef Name="ObjectID" />
+            <PropertyRef Name="MaterialID" />
+          </Key>
+          <Property Name="ObjectID" Type="Int32" Nullable="false" />
+          <Property Name="MaterialID" Type="Int32" Nullable="false" />
+          <Property Name="PlannedQuantity" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <NavigationProperty Name="ConstructionObjects" Relationship="Self.FK__ObjectMat__Objec__628FA481" FromRole="ObjectMaterials" ToRole="ConstructionObjects" />
+          <NavigationProperty Name="MaterialDeliveries" Relationship="Self.FK__MaterialDeliveri__66603565" FromRole="ObjectMaterials" ToRole="MaterialDeliveries" />
+          <NavigationProperty Name="Materials" Relationship="Self.FK__ObjectMat__Mater__6383C8BA" FromRole="ObjectMaterials" ToRole="Materials" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientID" Type="Int32" Nullable="false" />
+          <Property Name="ObjectID" Type="Int32" Nullable="false" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="StatusID" Type="Int32" Nullable="false" />
+          <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="StartDate" Type="DateTime" Precision="0" />
+          <Property Name="PlannedEndDate" Type="DateTime" Precision="0" />
+          <Property Name="Conditions" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TotalCost" Type="Decimal" Precision="12" Scale="2" />
+          <NavigationProperty Name="Clients" Relationship="Self.FK__Orders__ClientID__52593CB8" FromRole="Orders" ToRole="Clients" />
+          <NavigationProperty Name="ConstructionObjects" Relationship="Self.FK__Orders__ObjectID__534D60F1" FromRole="Orders" ToRole="ConstructionObjects" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK__Orders__Employee__5441852A" FromRole="Orders" ToRole="Employees" />
+          <NavigationProperty Name="OrderStatuses" Relationship="Self.FK__Orders__StatusID__5535A963" FromRole="Orders" ToRole="OrderStatuses" />
+          <NavigationProperty Name="OrderServices" Relationship="Self.FK__OrderServ__Order__76969D2E" FromRole="Orders" ToRole="OrderServices" />
+        </EntityType>
+        <EntityType Name="OrderServices">
+          <Key>
+            <PropertyRef Name="OrderServiceID" />
+          </Key>
+          <Property Name="OrderServiceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <Property Name="ServiceID" Type="Int32" Nullable="false" />
+          <Property Name="ServiceDate" Type="DateTime" Precision="0" />
+          <Property Name="Cost" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Note" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__OrderServ__Order__76969D2E" FromRole="OrderServices" ToRole="Orders" />
+          <NavigationProperty Name="Services" Relationship="Self.FK__OrderServ__Servi__778AC167" FromRole="OrderServices" ToRole="Services" />
+        </EntityType>
+        <EntityType Name="OrderStatuses">
+          <Key>
+            <PropertyRef Name="StatusID" />
+          </Key>
+          <Property Name="StatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__StatusID__5535A963" FromRole="OrderStatuses" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Permits">
+          <Key>
+            <PropertyRef Name="PermitID" />
+          </Key>
+          <Property Name="PermitID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ObjectID" Type="Int32" Nullable="false" />
+          <Property Name="PermitType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PermitNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IssuedBy" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="IssueDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ValidUntil" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="ConstructionObjects" Relationship="Self.FK__Permits__ObjectI__59063A47" FromRole="Permits" ToRole="ConstructionObjects" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Users_Roles" FromRole="Roles" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Services">
+          <Key>
+            <PropertyRef Name="ServiceID" />
+          </Key>
+          <Property Name="ServiceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ServiceName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BasePrice" Type="Decimal" Precision="10" Scale="2" />
+          <NavigationProperty Name="OrderServices" Relationship="Self.FK__OrderServ__Servi__778AC167" FromRole="Services" ToRole="OrderServices" />
+        </EntityType>
+        <EntityType Name="Sketches">
+          <Key>
+            <PropertyRef Name="SketchID" />
+          </Key>
+          <Property Name="SketchID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ObjectID" Type="Int32" Nullable="false" />
+          <Property Name="SketchName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FilePath" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Precision="0" />
+          <Property Name="IsApproved" Type="Boolean" />
+          <NavigationProperty Name="ConstructionObjects" Relationship="Self.FK__Sketches__Object__5BE2A6F2" FromRole="Sketches" ToRole="ConstructionObjects" />
+        </EntityType>
+        <EntityType Name="StageTypes">
+          <Key>
+            <PropertyRef Name="StageTypeID" />
+          </Key>
+          <Property Name="StageTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StageName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StageOrder" Type="Int32" />
+          <NavigationProperty Name="ConstructionStages" Relationship="Self.FK__Construct__Stage__6C190EBB" FromRole="StageTypes" ToRole="ConstructionStages" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TechnicalInspections">
+          <Key>
+            <PropertyRef Name="InspectionID" />
+          </Key>
+          <Property Name="InspectionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ObjectID" Type="Int32" Nullable="false" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="InspectionDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Result" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ConstructionObjects" Relationship="Self.FK__Technical__Objec__70DDC3D8" FromRole="TechnicalInspections" ToRole="ConstructionObjects" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK__Technical__Emplo__71D1E811" FromRole="TechnicalInspections" ToRole="Employees" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RoleID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Roles" Relationship="Self.FK_Users_Roles" FromRole="Users" ToRole="Roles" />
+        </EntityType>
+        <Association Name="FK__Orders__ClientID__52593CB8">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="ClientID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Construct__Objec__6B24EA82">
+          <End Role="ConstructionObjects" Type="Self.ConstructionObjects" Multiplicity="1" />
+          <End Role="ConstructionStages" Type="Self.ConstructionStages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ConstructionObjects">
+              <PropertyRef Name="ObjectID" />
+            </Principal>
+            <Dependent Role="ConstructionStages">
+              <PropertyRef Name="ObjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ObjectMat__Objec__628FA481">
+          <End Role="ConstructionObjects" Type="Self.ConstructionObjects" Multiplicity="1" />
+          <End Role="ObjectMaterials" Type="Self.ObjectMaterials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ConstructionObjects">
+              <PropertyRef Name="ObjectID" />
+            </Principal>
+            <Dependent Role="ObjectMaterials">
+              <PropertyRef Name="ObjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__ObjectID__534D60F1">
+          <End Role="ConstructionObjects" Type="Self.ConstructionObjects" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ConstructionObjects">
+              <PropertyRef Name="ObjectID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="ObjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Permits__ObjectI__59063A47">
+          <End Role="ConstructionObjects" Type="Self.ConstructionObjects" Multiplicity="1" />
+          <End Role="Permits" Type="Self.Permits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ConstructionObjects">
+              <PropertyRef Name="ObjectID" />
+            </Principal>
+            <Dependent Role="Permits">
+              <PropertyRef Name="ObjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sketches__Object__5BE2A6F2">
+          <End Role="ConstructionObjects" Type="Self.ConstructionObjects" Multiplicity="1" />
+          <End Role="Sketches" Type="Self.Sketches" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ConstructionObjects">
+              <PropertyRef Name="ObjectID" />
+            </Principal>
+            <Dependent Role="Sketches">
+              <PropertyRef Name="ObjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Technical__Objec__70DDC3D8">
+          <End Role="ConstructionObjects" Type="Self.ConstructionObjects" Multiplicity="1" />
+          <End Role="TechnicalInspections" Type="Self.TechnicalInspections" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ConstructionObjects">
+              <PropertyRef Name="ObjectID" />
+            </Principal>
+            <Dependent Role="TechnicalInspections">
+              <PropertyRef Name="ObjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Construct__Emplo__6D0D32F4">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="ConstructionStages" Type="Self.ConstructionStages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="ConstructionStages">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Construct__Stage__6C190EBB">
+          <End Role="StageTypes" Type="Self.StageTypes" Multiplicity="1" />
+          <End Role="ConstructionStages" Type="Self.ConstructionStages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StageTypes">
+              <PropertyRef Name="StageTypeID" />
+            </Principal>
+            <Dependent Role="ConstructionStages">
+              <PropertyRef Name="StageTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__Employee__5441852A">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Technical__Emplo__71D1E811">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="TechnicalInspections" Type="Self.TechnicalInspections" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="TechnicalInspections">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MaterialDeliveri__66603565">
+          <End Role="ObjectMaterials" Type="Self.ObjectMaterials" Multiplicity="1" />
+          <End Role="MaterialDeliveries" Type="Self.MaterialDeliveries" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ObjectMaterials">
+              <PropertyRef Name="ObjectID" />
+              <PropertyRef Name="MaterialID" />
+            </Principal>
+            <Dependent Role="MaterialDeliveries">
+              <PropertyRef Name="ObjectID" />
+              <PropertyRef Name="MaterialID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ObjectMat__Mater__6383C8BA">
+          <End Role="Materials" Type="Self.Materials" Multiplicity="1" />
+          <End Role="ObjectMaterials" Type="Self.ObjectMaterials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Materials">
+              <PropertyRef Name="MaterialID" />
+            </Principal>
+            <Dependent Role="ObjectMaterials">
+              <PropertyRef Name="MaterialID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__StatusID__5535A963">
+          <End Role="OrderStatuses" Type="Self.OrderStatuses" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderStatuses">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderServ__Order__76969D2E">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="OrderServices" Type="Self.OrderServices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="OrderServices">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderServ__Servi__778AC167">
+          <End Role="Services" Type="Self.Services" Multiplicity="1" />
+          <End Role="OrderServices" Type="Self.OrderServices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services">
+              <PropertyRef Name="ServiceID" />
+            </Principal>
+            <Dependent Role="OrderServices">
+              <PropertyRef Name="ServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ConstructionEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Clients" EntityType="Self.Clients" />
+          <EntitySet Name="ConstructionObjects" EntityType="Self.ConstructionObjects" />
+          <EntitySet Name="ConstructionStages" EntityType="Self.ConstructionStages" />
+          <EntitySet Name="Employees" EntityType="Self.Employees" />
+          <EntitySet Name="MaterialDeliveries" EntityType="Self.MaterialDeliveries" />
+          <EntitySet Name="Materials" EntityType="Self.Materials" />
+          <EntitySet Name="ObjectMaterials" EntityType="Self.ObjectMaterials" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" />
+          <EntitySet Name="OrderServices" EntityType="Self.OrderServices" />
+          <EntitySet Name="OrderStatuses" EntityType="Self.OrderStatuses" />
+          <EntitySet Name="Permits" EntityType="Self.Permits" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" />
+          <EntitySet Name="Services" EntityType="Self.Services" />
+          <EntitySet Name="Sketches" EntityType="Self.Sketches" />
+          <EntitySet Name="StageTypes" EntityType="Self.StageTypes" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="TechnicalInspections" EntityType="Self.TechnicalInspections" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <AssociationSet Name="FK__Orders__ClientID__52593CB8" Association="Self.FK__Orders__ClientID__52593CB8">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Construct__Objec__6B24EA82" Association="Self.FK__Construct__Objec__6B24EA82">
+            <End Role="ConstructionObjects" EntitySet="ConstructionObjects" />
+            <End Role="ConstructionStages" EntitySet="ConstructionStages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ObjectMat__Objec__628FA481" Association="Self.FK__ObjectMat__Objec__628FA481">
+            <End Role="ConstructionObjects" EntitySet="ConstructionObjects" />
+            <End Role="ObjectMaterials" EntitySet="ObjectMaterials" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__ObjectID__534D60F1" Association="Self.FK__Orders__ObjectID__534D60F1">
+            <End Role="ConstructionObjects" EntitySet="ConstructionObjects" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Permits__ObjectI__59063A47" Association="Self.FK__Permits__ObjectI__59063A47">
+            <End Role="ConstructionObjects" EntitySet="ConstructionObjects" />
+            <End Role="Permits" EntitySet="Permits" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sketches__Object__5BE2A6F2" Association="Self.FK__Sketches__Object__5BE2A6F2">
+            <End Role="ConstructionObjects" EntitySet="ConstructionObjects" />
+            <End Role="Sketches" EntitySet="Sketches" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Technical__Objec__70DDC3D8" Association="Self.FK__Technical__Objec__70DDC3D8">
+            <End Role="ConstructionObjects" EntitySet="ConstructionObjects" />
+            <End Role="TechnicalInspections" EntitySet="TechnicalInspections" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Construct__Emplo__6D0D32F4" Association="Self.FK__Construct__Emplo__6D0D32F4">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="ConstructionStages" EntitySet="ConstructionStages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Construct__Stage__6C190EBB" Association="Self.FK__Construct__Stage__6C190EBB">
+            <End Role="StageTypes" EntitySet="StageTypes" />
+            <End Role="ConstructionStages" EntitySet="ConstructionStages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__Employee__5441852A" Association="Self.FK__Orders__Employee__5441852A">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Technical__Emplo__71D1E811" Association="Self.FK__Technical__Emplo__71D1E811">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="TechnicalInspections" EntitySet="TechnicalInspections" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MaterialDeliveri__66603565" Association="Self.FK__MaterialDeliveri__66603565">
+            <End Role="ObjectMaterials" EntitySet="ObjectMaterials" />
+            <End Role="MaterialDeliveries" EntitySet="MaterialDeliveries" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ObjectMat__Mater__6383C8BA" Association="Self.FK__ObjectMat__Mater__6383C8BA">
+            <End Role="Materials" EntitySet="Materials" />
+            <End Role="ObjectMaterials" EntitySet="ObjectMaterials" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__StatusID__5535A963" Association="Self.FK__Orders__StatusID__5535A963">
+            <End Role="OrderStatuses" EntitySet="OrderStatuses" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderServ__Order__76969D2E" Association="Self.FK__OrderServ__Order__76969D2E">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrderServices" EntitySet="OrderServices" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderServ__Servi__778AC167" Association="Self.FK__OrderServ__Servi__778AC167">
+            <End Role="Services" EntitySet="Services" />
+            <End Role="OrderServices" EntitySet="OrderServices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Roles" Association="Self.FK_Users_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище stroi2ModelContainer" CdmEntityContainer="ConstructionEntities">
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="stroi2Model.Clients">
+              <MappingFragment StoreEntitySet="Clients">
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="Passport" ColumnName="Passport" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ConstructionObjects">
+            <EntityTypeMapping TypeName="stroi2Model.ConstructionObjects">
+              <MappingFragment StoreEntitySet="ConstructionObjects">
+                <ScalarProperty Name="ObjectID" ColumnName="ObjectID" />
+                <ScalarProperty Name="ObjectName" ColumnName="ObjectName" />
+                <ScalarProperty Name="ObjectType" ColumnName="ObjectType" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="Floors" ColumnName="Floors" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ConstructionStages">
+            <EntityTypeMapping TypeName="stroi2Model.ConstructionStages">
+              <MappingFragment StoreEntitySet="ConstructionStages">
+                <ScalarProperty Name="StageID" ColumnName="StageID" />
+                <ScalarProperty Name="ObjectID" ColumnName="ObjectID" />
+                <ScalarProperty Name="StageTypeID" ColumnName="StageTypeID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="stroi2Model.Employees">
+              <MappingFragment StoreEntitySet="Employees">
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MaterialDeliveries">
+            <EntityTypeMapping TypeName="stroi2Model.MaterialDeliveries">
+              <MappingFragment StoreEntitySet="MaterialDeliveries">
+                <ScalarProperty Name="DeliveryID" ColumnName="DeliveryID" />
+                <ScalarProperty Name="ObjectID" ColumnName="ObjectID" />
+                <ScalarProperty Name="MaterialID" ColumnName="MaterialID" />
+                <ScalarProperty Name="Supplier" ColumnName="Supplier" />
+                <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Materials">
+            <EntityTypeMapping TypeName="stroi2Model.Materials">
+              <MappingFragment StoreEntitySet="Materials">
+                <ScalarProperty Name="MaterialID" ColumnName="MaterialID" />
+                <ScalarProperty Name="MaterialName" ColumnName="MaterialName" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ObjectMaterials">
+            <EntityTypeMapping TypeName="stroi2Model.ObjectMaterials">
+              <MappingFragment StoreEntitySet="ObjectMaterials">
+                <ScalarProperty Name="ObjectID" ColumnName="ObjectID" />
+                <ScalarProperty Name="MaterialID" ColumnName="MaterialID" />
+                <ScalarProperty Name="PlannedQuantity" ColumnName="PlannedQuantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="stroi2Model.Orders">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="ObjectID" ColumnName="ObjectID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="PlannedEndDate" ColumnName="PlannedEndDate" />
+                <ScalarProperty Name="Conditions" ColumnName="Conditions" />
+                <ScalarProperty Name="TotalCost" ColumnName="TotalCost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderServices">
+            <EntityTypeMapping TypeName="stroi2Model.OrderServices">
+              <MappingFragment StoreEntitySet="OrderServices">
+                <ScalarProperty Name="OrderServiceID" ColumnName="OrderServiceID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
+                <ScalarProperty Name="ServiceDate" ColumnName="ServiceDate" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderStatuses">
+            <EntityTypeMapping TypeName="stroi2Model.OrderStatuses">
+              <MappingFragment StoreEntitySet="OrderStatuses">
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Permits">
+            <EntityTypeMapping TypeName="stroi2Model.Permits">
+              <MappingFragment StoreEntitySet="Permits">
+                <ScalarProperty Name="PermitID" ColumnName="PermitID" />
+                <ScalarProperty Name="ObjectID" ColumnName="ObjectID" />
+                <ScalarProperty Name="PermitType" ColumnName="PermitType" />
+                <ScalarProperty Name="PermitNumber" ColumnName="PermitNumber" />
+                <ScalarProperty Name="IssuedBy" ColumnName="IssuedBy" />
+                <ScalarProperty Name="IssueDate" ColumnName="IssueDate" />
+                <ScalarProperty Name="ValidUntil" ColumnName="ValidUntil" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="stroi2Model.Roles">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Services">
+            <EntityTypeMapping TypeName="stroi2Model.Services">
+              <MappingFragment StoreEntitySet="Services">
+                <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
+                <ScalarProperty Name="ServiceName" ColumnName="ServiceName" />
+                <ScalarProperty Name="BasePrice" ColumnName="BasePrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sketches">
+            <EntityTypeMapping TypeName="stroi2Model.Sketches">
+              <MappingFragment StoreEntitySet="Sketches">
+                <ScalarProperty Name="SketchID" ColumnName="SketchID" />
+                <ScalarProperty Name="ObjectID" ColumnName="ObjectID" />
+                <ScalarProperty Name="SketchName" ColumnName="SketchName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StageTypes">
+            <EntityTypeMapping TypeName="stroi2Model.StageTypes">
+              <MappingFragment StoreEntitySet="StageTypes">
+                <ScalarProperty Name="StageTypeID" ColumnName="StageTypeID" />
+                <ScalarProperty Name="StageName" ColumnName="StageName" />
+                <ScalarProperty Name="StageOrder" ColumnName="StageOrder" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="stroi2Model.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TechnicalInspections">
+            <EntityTypeMapping TypeName="stroi2Model.TechnicalInspections">
+              <MappingFragment StoreEntitySet="TechnicalInspections">
+                <ScalarProperty Name="InspectionID" ColumnName="InspectionID" />
+                <ScalarProperty Name="ObjectID" ColumnName="ObjectID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="InspectionDate" ColumnName="InspectionDate" />
+                <ScalarProperty Name="Result" ColumnName="Result" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="stroi2Model.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
